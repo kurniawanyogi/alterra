@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserModel {
+public class UserModel extends BaseModel{
     @Id
     @Column(name = "ID")
     private String id;

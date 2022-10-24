@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody ProductForm form) {
         return productService.create(form);
@@ -33,11 +35,13 @@ public class ProductController {
         return productService.findById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "{id}")
     public ResponseEntity<Object> update(@RequestBody ProductForm form, @PathVariable Long id) {
         return productService.updateById(form, id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Long id) {
         return productService.deleteById(id);
